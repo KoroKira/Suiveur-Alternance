@@ -17,7 +17,7 @@ Suiveur d'Alternance est une application de bureau permettant de suivre les entr
 
 2. **Installer les dépendances** :
    ```sh
-   npm install
+   npm install electron
    ```
 
 ## Utilisation
@@ -31,7 +31,7 @@ Suiveur d'Alternance est une application de bureau permettant de suivre les entr
    - **Page principale** : Sélectionnez les actions souhaitées (voir les entreprises contactées, ajouter une entreprise, éditer des données).
    - **Ajouter une entreprise** : Remplissez le formulaire avec les détails de l'entreprise et cliquez sur "Ajouter". Les données seront sauvegardées localement.
    - **Voir les entreprises contactées** : Consultez la liste des entreprises ajoutées. Vous pouvez supprimer une entreprise si nécessaire.
-   - **Éditer des données** : Fonctionnalité pour éditer les informations des entreprises (à implémenter).
+   - **Éditer des données** : Fonctionnalité pour éditer les informations des entreprises (en cours).
 
 ## Structure des Fichiers
 

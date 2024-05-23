@@ -4,12 +4,11 @@
     "description": "Application de suivi d'alternance",
     "main": "main.js",
     "scripts": {
-      "start": "electron ."
+        "start": "electron ."
     },
     "author": "Guilhem Desarcy-Lemiere",
     "license": "MIT",
     "dependencies": {
-      "electron": "^16.0.0"
+        "electron": "^16.2.8"
     }
-  }
-  
+}
