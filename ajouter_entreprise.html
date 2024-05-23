@@ -8,33 +8,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Ajouter une entreprise</h2>
-    <form id="companyForm">
+  <div class="container text-center py-5">
+    <h2 class="mb-5">Ajouter une entreprise</h2>
+    <form>
       <div class="form-group">
-        <label for="companyName">Nom de l'entreprise:</label>
-        <input type="text" class="form-control" id="companyName" required>
+        <label for="companyName">Nom de l'entreprise</label>
+        <input type="text" class="form-control" id="companyName" placeholder="Entrez le nom de l'entreprise">
       </div>
       <div class="form-group">
-        <label for="sector">Secteur:</label>
-        <input type="text" class="form-control" id="sector" required>
+        <label for="contactName">Nom du contact</label>
+        <input type="text" class="form-control" id="contactName" placeholder="Entrez le nom du contact">
       </div>
       <div class="form-group">
-        <label for="applicationDate">Date de candidature:</label>
-        <input type="date" class="form-control" id="applicationDate" required>
+        <label for="contactEmail">Email du contact</label>
+        <input type="email" class="form-control" id="contactEmail" placeholder="Entrez l'email du contact">
       </div>
-      <div class="form-group">
-        <label for="applicationMethod">Format de candidature:</label>
-        <select class="form-control" id="applicationMethod" required>
-          <option value="mail">Mail</option>
-          <option value="site">Site</option>
-          <option value="in-person">En personne</option>
-        </select>
-      </div>
-      <!-- Add other form fields here -->
-      <button type="submit" class="btn btn-success">Ajouter</button>
+      <button type="submit" class="btn btn-outline-success btn-lg p-3">Ajouter</button>
     </form>
-    <a href="main.html" class="btn btn-secondary">Retour</a>
+    <a href="main.html" class="btn btn-outline-secondary btn-lg p-3 mt-3">Retour</a>
   </div>
   <script src="meca.js"></script>
 </body>
