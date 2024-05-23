@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajouter une entreprise</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Ajouter une entreprise</h2>
+    <form id="companyForm">
+      <div class="form-group">
+        <label for="companyName">Nom de l'entreprise:</label>
+        <input type="text" class="form-control" id="companyName" required>
+      </div>
+      <div class="form-group">
+        <label for="sector">Secteur:</label>
+        <input type="text" class="form-control" id="sector" required>
+      </div>
+      <div class="form-group">
+        <label for="applicationDate">Date de candidature:</label>
+        <input type="date" class="form-control" id="applicationDate" required>
+      </div>
+      <div class="form-group">
+        <label for="applicationMethod">Format de candidature:</label>
+        <select class="form-control" id="applicationMethod" required>
+          <option value="mail">Mail</option>
+          <option value="site">Site</option>
+          <option value="in-person">En personne</option>
+        </select>
+      </div>
+      <!-- Add other form fields here -->
+      <button type="submit" class="btn btn-success">Ajouter</button>
+    </form>
+    <a href="main.html" class="btn btn-secondary">Retour</a>
+  </div>
+  <script src="meca.js"></script>
+</body>
+</html>

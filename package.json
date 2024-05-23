@@ -1,0 +1,15 @@
+{
+    "name": "suiveur-dalternance",
+    "version": "1.0.0",
+    "description": "Application de suivi d'alternance",
+    "main": "main.js",
+    "scripts": {
+      "start": "electron ."
+    },
+    "author": "Guilhem Desarcy-Lemiere",
+    "license": "MIT",
+    "dependencies": {
+      "electron": "^16.0.0"
+    }
+  }
+  
