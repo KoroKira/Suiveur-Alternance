@@ -11,7 +11,7 @@ Suiveur d'Alternance est une application de bureau permettant de suivre les entr
 
 1. **Cloner le dépôt ou télécharger les fichiers de l'application** :
    ```sh
-   git clone https://github.com/votre-repo/suiveur_dalternance.git
+   git clone https://github.com/KoroKira/Suiveur-Alternance.git
    cd suiveur_dalternance
    ```
 
