@@ -29,33 +29,42 @@ app.on('window-all-closed', function () {
 });
 
 ipcMain.handle('save-company-data', async (event, company) => {
-  const companyDir = path.join(__dirname, `Entreprises/${company.name}`);
-  
-  if (!fs.existsSync(companyDir)) {
-    fs.mkdirSync(companyDir, { recursive: true });
+  try {
+    const companyDir = path.join(__dirname, `Entreprises/${company.name}`);
+    if (!fs.existsSync(companyDir)) {
+      fs.mkdirSync(companyDir, { recursive: true });
+    }
+
+    const dataFilePath = path.join(companyDir, 'datas.json');
+    fs.writeFileSync(dataFilePath, JSON.stringify(company, null, 2));
+
+    return 'Entreprise créée avec succès!';
+  } catch (error) {
+    console.error('Failed to save company data:', error);
+    throw error;
   }
-
-  const dataFilePath = path.join(companyDir, 'datas.json');
-  fs.writeFileSync(dataFilePath, JSON.stringify(company, null, 2));
-
-  return 'Entreprise créée avec succès!';
 });
 
 ipcMain.handle('load-companies', async () => {
-  const companiesDir = path.join(__dirname, 'Entreprises');
-  const companies = [];
+  try {
+    const companiesDir = path.join(__dirname, 'Entreprises');
+    const companies = [];
 
-  if (fs.existsSync(companiesDir)) {
-    const companyDirs = fs.readdirSync(companiesDir);
+    if (fs.existsSync(companiesDir)) {
+      const companyDirs = fs.readdirSync(companiesDir);
 
-    for (const dir of companyDirs) {
-      const dataFilePath = path.join(companiesDir, dir, 'datas.json');
-      if (fs.existsSync(dataFilePath)) {
-        const companyData = fs.readFileSync(dataFilePath);
-        companies.push(JSON.parse(companyData));
+      for (const dir of companyDirs) {
+        const dataFilePath = path.join(companiesDir, dir, 'datas.json');
+        if (fs.existsSync(dataFilePath)) {
+          const companyData = fs.readFileSync(dataFilePath);
+          companies.push(JSON.parse(companyData));
+        }
       }
     }
-  }
 
-  return companies;
+    return companies;
+  } catch (error) {
+    console.error('Failed to load companies:', error);
+    throw error;
+  }
 });
