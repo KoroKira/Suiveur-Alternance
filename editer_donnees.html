@@ -10,8 +10,17 @@
 <body>
   <div class="container text-center py-5">
     <h2 class="mb-5">Éditer des données</h2>
-    <!-- Add form and other elements for editing data here -->
-    <a href="main.html" class="btn btn-outline-secondary btn-lg p-3">Retour</a>
+    <form id="editForm">
+      <!-- Les champs du formulaire ici seront similaires à ceux du formulaire d'ajout, mais ils seront remplis avec les données existantes -->
+      <!-- Par exemple : -->
+      <div class="form-group">
+        <label for="companyName">Nom de l'entreprise</label>
+        <input type="text" class="form-control" id="companyName" value="Nom de l'entreprise existant">
+      </div>
+      <!-- Ajoutez le reste des champs ici, en remplissant la valeur avec les données existantes -->
+      <button type="submit" class="btn btn-outline-success btn-lg p-3">Mettre à jour</button>
+    </form>
+    <a href="main.html" class="btn btn-outline-secondary btn-lg p-3 mt-3">Retour</a>
   </div>
   <script src="meca.js"></script>
 </body>
