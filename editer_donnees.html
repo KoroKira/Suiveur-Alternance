@@ -11,13 +11,53 @@
   <div class="container text-center py-5">
     <h2 class="mb-5">Éditer des données</h2>
     <form id="editForm">
-      <!-- Les champs du formulaire ici seront similaires à ceux du formulaire d'ajout, mais ils seront remplis avec les données existantes -->
-      <!-- Par exemple : -->
       <div class="form-group">
         <label for="companyName">Nom de l'entreprise</label>
-        <input type="text" class="form-control" id="companyName" value="Nom de l'entreprise existant">
+        <input type="text" class="form-control" id="companyName">
       </div>
-      <!-- Ajoutez le reste des champs ici, en remplissant la valeur avec les données existantes -->
+      <div class="form-group">
+        <label for="sector">Secteur</label>
+        <input type="text" class="form-control" id="sector">
+      </div>
+      <div class="form-group">
+        <label for="applicationDate">Date de candidature</label>
+        <input type="date" class="form-control" id="applicationDate">
+      </div>
+      <div class="form-group">
+        <label>Format de candidature</label>
+        <div>
+          <input type="checkbox" id="mail" name="applicationFormat">
+          <label for="mail">Mail</label>
+          <input type="checkbox" id="website" name="applicationFormat">
+          <label for="website">Site</label>
+          <input type="checkbox" id="inPerson" name="applicationFormat">
+          <label for="inPerson">En personne</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contactName">Nom du contact</label>
+        <input type="text" class="form-control" id="contactName">
+      </div>
+      <div class="form-group">
+        <label for="targetPosition">Poste visé</label>
+        <input type="text" class="form-control" id="targetPosition">
+      </div>
+      <div class="form-group">
+        <label for="address">Adresse</label>
+        <input type="text" class="form-control" id="address">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Numéro de tel</label>
+        <input type="tel" class="form-control" id="phoneNumber">
+      </div>
+      <div class="form-group">
+        <label for="contactEmail">Email du contact</label>
+        <input type="email" class="form-control" id="contactEmail">
+      </div>
+      <div class="form-group">
+        <label for="additionalNotes">Prise de note complémentaire</label>
+        <textarea class="form-control" id="additionalNotes" rows="3"></textarea>
+      </div>
       <button type="submit" class="btn btn-outline-success btn-lg p-3">Mettre à jour</button>
     </form>
     <a href="main.html" class="btn btn-outline-secondary btn-lg p-3 mt-3">Retour</a>
