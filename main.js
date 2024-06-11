@@ -1,70 +1,52 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
-function createWindow() {
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
-      contextIsolation: false
-    }
-  });
+let mainWindow;
 
-  mainWindow.loadFile('main.html');
+function createWindow() {
+    mainWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    mainWindow.loadFile('index.html');
 }
 
-app.whenReady().then(() => {
-  createWindow();
+app.on('ready', createWindow);
 
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
+ipcMain.on('add-company', (event, companyData) => {
+    const companyId = Date.now().toString();
+    const companyPath = path.join(app.getPath('userData'), 'companies', `${companyId}.json`);
+    fs.writeFileSync(companyPath, JSON.stringify(companyData));
 });
 
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit();
+ipcMain.on('get-all-companies', (event) => {
+    const companiesPath = path.join(app.getPath('userData'), 'companies');
+    const companies = fs.readdirSync(companiesPath).map(file => {
+        const filePath = path.join(companiesPath, file);
+        return JSON.parse(fs.readFileSync(filePath));
+    });
+    event.sender.send('companies-data', companies);
 });
 
-ipcMain.handle('save-company-data', async (event, company) => {
-  try {
-    const companyDir = path.join(__dirname, `Entreprises/${company.name}`);
-    if (!fs.existsSync(companyDir)) {
-      fs.mkdirSync(companyDir, { recursive: true });
-    }
-
-    const dataFilePath = path.join(companyDir, 'datas.json');
-    fs.writeFileSync(dataFilePath, JSON.stringify(company, null, 2));
-
-    return 'Entreprise créée avec succès!';
-  } catch (error) {
-    console.error('Failed to save company data:', error);
-    throw error;
-  }
+ipcMain.on('get-company', (event, companyId) => {
+    const companyPath = path.join(app.getPath('userData'), 'companies', `${companyId}.json`);
+    const company = JSON.parse(fs.readFileSync(companyPath));
+    event.sender.send('company-data', company);
 });
 
-ipcMain.handle('load-companies', async () => {
-  try {
-    const companiesDir = path.join(__dirname, 'Entreprises');
-    const companies = [];
+ipcMain.on('update-company', (event, updatedCompanyData) => {
+    const companyPath = path.join(app.getPath('userData'), 'companies', `${updatedCompanyData.id}.json`);
+    fs.writeFileSync(companyPath, JSON.stringify(updatedCompanyData));
+});
 
-    if (fs.existsSync(companiesDir)) {
-      const companyDirs = fs.readdirSync(companiesDir);
-
-      for (const dir of companyDirs) {
-        const dataFilePath = path.join(companiesDir, dir, 'datas.json');
-        if (fs.existsSync(dataFilePath)) {
-          const companyData = fs.readFileSync(dataFilePath);
-          companies.push(JSON.parse(companyData));
-        }
-      }
-    }
-
-    return companies;
-  } catch (error) {
-    console.error('Failed to load companies:', error);
-    throw error;
-  }
+ipcMain.on('edit-company', (event, companyId) => {
+    mainWindow.loadFile('edit.html');
+    mainWindow.webContents.once('did-finish-load', () => {
+        mainWindow.webContents.send('company-data', companyId);
+    });
 });
