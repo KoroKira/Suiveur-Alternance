@@ -6,8 +6,8 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1600,
+        height: 1200,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -18,30 +18,55 @@ function createWindow() {
 
 app.on('ready', createWindow);
 
+ipcMain.on('navigate', (event, page) => {
+    mainWindow.loadFile(page);
+});
+
+const getCompaniesFilePath = () => {
+    return path.join(app.getPath('userData'), 'infos.json');
+};
+
+const readCompaniesFile = () => {
+    const filePath = getCompaniesFilePath();
+    if (fs.existsSync(filePath)) {
+        const data = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(data);
+    } else {
+        return [];
+    }
+};
+
+const writeCompaniesFile = (data) => {
+    const filePath = getCompaniesFilePath();
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+};
+
 ipcMain.on('add-company', (event, companyData) => {
+    const companies = readCompaniesFile();
     const companyId = Date.now().toString();
-    const companyPath = path.join(app.getPath('userData'), 'companies', `${companyId}.json`);
-    fs.writeFileSync(companyPath, JSON.stringify(companyData));
+    companyData.id = companyId;
+    companies.push(companyData);
+    writeCompaniesFile(companies);
 });
 
 ipcMain.on('get-all-companies', (event) => {
-    const companiesPath = path.join(app.getPath('userData'), 'companies');
-    const companies = fs.readdirSync(companiesPath).map(file => {
-        const filePath = path.join(companiesPath, file);
-        return JSON.parse(fs.readFileSync(filePath));
-    });
+    const companies = readCompaniesFile();
     event.sender.send('companies-data', companies);
 });
 
 ipcMain.on('get-company', (event, companyId) => {
-    const companyPath = path.join(app.getPath('userData'), 'companies', `${companyId}.json`);
-    const company = JSON.parse(fs.readFileSync(companyPath));
-    event.sender.send('company-data', company);
+    const companies = readCompaniesFile();
+    const company = companies.find(c => c.id === companyId);
+    event.sender.send('company-data', company || null);
 });
 
 ipcMain.on('update-company', (event, updatedCompanyData) => {
-    const companyPath = path.join(app.getPath('userData'), 'companies', `${updatedCompanyData.id}.json`);
-    fs.writeFileSync(companyPath, JSON.stringify(updatedCompanyData));
+    const companies = readCompaniesFile();
+    const index = companies.findIndex(c => c.id === updatedCompanyData.id);
+    if (index !== -1) {
+        companies[index] = updatedCompanyData;
+        writeCompaniesFile(companies);
+    }
 });
 
 ipcMain.on('edit-company', (event, companyId) => {
