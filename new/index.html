@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Entreprises</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .company {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .company-details {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestion des Entreprises</h1>
+    <form id="addCompanyForm">
+        <div class="form-group">
+            <label for="name">Nom de l'entreprise:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="sector">Secteur:</label>
+            <input type="text" class="form-control" id="sector" name="sector" required>
+        </div>
+        <div class="form-group">
+            <label for="applicationDate">Date de candidature:</label>
+            <input type="date" class="form-control" id="applicationDate" name="applicationDate" required>
+        </div>
+        <div class="form-group">
+            <label for="applicationFormat">Format de candidature:</label>
+            <select class="form-control" id="applicationFormat" name="applicationFormat" required>
+                <option value="mail">Mail</option>
+                <option value="site">Site</option>
+                <option value="inPerson">En personne</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="contactName">Nom du contact:</label>
+            <input type="text" class="form-control" id="contactName" name="contactName">
+        </div>
+        <div class="form-group">
+            <label for="position">Poste visé:</label>
+            <input type="text" class="form-control" id="position" name="position">
+        </div>
+        <div class="form-group">
+            <label for="address">Adresse:</label>
+            <input type="text" class="form-control" id="address" name="address">
+        </div>
+        <div class="form-group">
+            <label for="phone">Numéro de téléphone:</label>
+            <input type="tel" class="form-control" id="phone" name="phone">
+        </div>
+        <div class="form-group">
+            <label for="email">Email du contact:</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="notes">Notes complémentaires:</label>
+            <textarea class="form-control" id="notes" name="notes"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter l'entreprise</button>
+    </form>
+    <ul id="companyList"></ul>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
